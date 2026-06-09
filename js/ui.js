@@ -1,5 +1,7 @@
 function el(sel){return document.querySelector(sel)}
-function money(n){return n.toLocaleString(undefined,{style:'currency',currency:'USD'})}
+function buildCurrencyFormatter(code){
+  try{return new Intl.NumberFormat(undefined,{style:'currency',currency:code,minFractionDigits:2});}catch{return new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',minFractionDigits:2});}
+}
 export const ui = {
   get els(){
     return {
@@ -12,7 +14,14 @@ export const ui = {
       resetBtn: el('#reset-btn'),
       filter: el('#filter-category'),
       list: el('#expenses-list'),
-      total: el('#total-amount')
+      total: el('#total-amount'),
+      startDate: el('#start-date'),
+      endDate: el('#end-date'),
+      currencySelect: el('#currency-select'),
+      exportBtn: el('#export-btn'),
+      importBtn: el('#import-btn'),
+      importFile: el('#import-file'),
+      themeToggle: el('#theme-toggle')
     };
   },
   populateDate(){
@@ -34,7 +43,7 @@ export const ui = {
     this.els.date.value = expense.date;
     this.els.submitBtn.textContent = 'Save Changes';
   },
-  renderList(expenses){
+  renderList(expenses, formatter){
     const ul = this.els.list;
     ul.innerHTML = '';
     if (!expenses.length){
@@ -64,7 +73,7 @@ export const ui = {
       right.className = 'expense-right';
       const amt = document.createElement('div');
       amt.className = 'amount';
-      amt.textContent = money(Number(e.amount));
+      amt.textContent = formatter.format(Number(e.amount));
 
       const editBtn = document.createElement('button');
       editBtn.className = 'icon-btn edit';
@@ -93,9 +102,9 @@ export const ui = {
       ul.appendChild(li);
     }
   },
-  renderTotal(expenses){
+  renderTotal(expenses, formatter){
     const total = expenses.reduce((s,n)=>s+Number(n.amount),0);
-    this.els.total.textContent = money(total);
+    this.els.total.textContent = formatter.format(total);
   },
   renderFilterOptions(expenses){
     const categories = Array.from(new Set(expenses.map(e=>e.category))).filter(Boolean);

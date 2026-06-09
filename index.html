@@ -9,8 +9,18 @@
 <body>
   <div class="container">
     <header>
-      <h1>Expense Tracker</h1>
-      <p class="subtitle">Track your expenses — simple, private, and fast.</p>
+      <div class="header-row">
+        <div>
+          <h1>Expense Tracker</h1>
+          <p class="subtitle">Track your expenses — simple, private, and fast.</p>
+        </div>
+        <div class="header-controls">
+          <label class="theme-switch">
+            <input id="theme-toggle" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
     </header>
 
     <main>
@@ -55,15 +65,46 @@
 
       <section class="card control-card">
         <div class="controls">
-          <div class="filter">
-            <label for="filter-category">Filter</label>
-            <select id="filter-category">
-              <option value="all">All Categories</option>
-            </select>
+          <div class="left-controls">
+            <div class="filter">
+              <label for="filter-category">Filter</label>
+              <select id="filter-category">
+                <option value="all">All Categories</option>
+              </select>
+            </div>
+
+            <div class="date-range">
+              <label>Date range</label>
+              <div class="range-inputs">
+                <input type="date" id="start-date" />
+                <span class="sep">—</span>
+                <input type="date" id="end-date" />
+              </div>
+            </div>
+
+            <div class="currency">
+              <label for="currency-select">Currency</label>
+              <select id="currency-select">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="JPY">JPY</option>
+                <option value="AUD">AUD</option>
+              </select>
+            </div>
           </div>
-          <div class="total">
-            <span>Total</span>
-            <strong id="total-amount">$0.00</strong>
+
+          <div class="right-controls">
+            <div class="total">
+              <span>Total</span>
+              <strong id="total-amount">$0.00</strong>
+            </div>
+
+            <div class="backup-actions">
+              <button id="export-btn" class="btn">Export CSV</button>
+              <button id="import-btn" class="btn">Import CSV</button>
+              <input id="import-file" type="file" accept="text/csv" style="display:none" />
+            </div>
           </div>
         </div>
       </section>

@@ -6,7 +6,11 @@ Features
 
 - Add, edit, and delete expenses
 - Filter expenses by category
+- Filter expenses by date range
 - View total spending for current filter
+- Export and import expenses as CSV for backup
+- Choose display currency (USD, EUR, GBP, JPY, AUD) — affects display only
+- Light and dark themes with preference saved
 - Responsive layout for desktop and mobile
 - Clean, modern UI
 - All data stored in localStorage under the key `expenseTracker.expenses`
@@ -16,7 +20,7 @@ Files
 - index.html — main HTML file
 - css/style.css — styles
 - js/app.js — application logic and initialization
-- js/storage.js — localStorage wrapper
+- js/storage.js — localStorage wrapper with CSV export/import and settings
 - js/ui.js — DOM rendering and UI helpers
 - README.md — this file
 - .gitignore
@@ -40,11 +44,16 @@ Usage
 - Click the pencil icon to edit an expense; the form will switch to edit mode.
 - Click the trash icon to delete an expense.
 - Use the Filter dropdown to view expenses by category; the total updates accordingly.
-- All changes persist in your browser's localStorage.
+- Use the Date range inputs to limit results by date.
+- Change the Currency selector to adjust how amounts are displayed (no conversion).
+- Use Export CSV to download a backup file.
+- Use Import CSV to merge expenses from a CSV backup. The CSV should have a header with columns: id,description,amount,category,date,createdAt. Missing ids will be generated. Rows with invalid data are skipped.
+- Theme toggle in the header switches between light and dark themes and is saved to your browser.
 
-Deployment
+Notes
 
-- This is a static project and can be hosted via GitHub Pages or any static hosting service.
+- Import merges rows and avoids duplicates by id.
+- Currency selection affects only display formatting.
 
 License
 
